@@ -1,5 +1,4 @@
-```python
-md_content = """# Excel Formeln in feste Werte umwandeln (`_hardcoded.xlsx`)
+# Excel Formeln in feste Werte umwandeln (`_hardcoded.xlsx`)
 
 Dieses Tool bzw. Skript konvertiert rechenintensive Excel-Dateien (`.xlsx`) in blitzschnell öffnende Dateien, indem alle Formeln durch ihre festen, berechneten Werte ersetzt werden. Diagramme und Formatierungen bleiben dabei vollständig erhalten, da sie auf den reinen Zellwerten basieren.
 
@@ -9,21 +8,6 @@ Dieses Tool bzw. Skript konvertiert rechenintensive Excel-Dateien (`.xlsx`) in b
 
 1. **Skript-Datei erstellen:** Speichere das Skript als `excel_to_static_progress.sh` ab.
 2. **Terminal öffnen** und in den Ordner navigieren, in dem das Skript liegt:
-
-```
-
-```text
-Traceback (most recent call last):
-  File "<xbox-string>", line 10
-    script_content = '''#!/bin/bash
-                     ^
-SyntaxError: unterminated triple-quoted string literal (detected at line 55)
-
-```bash
-   cd /Pfad/zu/deinem/ordner
-
-```
-
 3. **Ausführbarkeit erlauben** (einmalig notwendig):
 ```bash
 chmod +x excel_to_static_progress.sh
