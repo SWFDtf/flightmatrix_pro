@@ -14,7 +14,7 @@ Es analysiert lückenlos alle Tage innerhalb von Schulferien (per gleitendem Fen
 ---
 
 ## Features
-- **Sliding-Window-Analyse:** Geht jeden einzelnen Tag der Schulferien (NRW 2026/2027) für verschiedene Reisedauern (4 bis 14 Tage) durch.
+- **Sliding-Window-Analyse:** Geht jeden einzelnen Tag der Schulferien (NRW) für verschiedene Reisedauern (4 bis 14 Tage) durch.
 - **Umfassendes Abflughafen-Netzwerk:** - *Regional NRW:* Düsseldorf (DUS), Köln/Bonn (CGN), Dortmund (DTM), Münster/Osnabrück (FMO), Paderborn/Lippstadt (PAD), Niederrhein-Weeze (NRN)
   - *Deutsche Hubs:* Frankfurt (FRA), München (MUC), Berlin (BER), Hamburg (HAM), Stuttgart (STR)
 - **Multi-Plattform-Vergleich:** Vergleicht Angebote virtuell über Google Flights, Skyscanner und Trip.com mit echten, klickbaren Deeplinks.
