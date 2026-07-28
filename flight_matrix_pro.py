@@ -1,42 +1,166 @@
-class lllIIIlIIlI:
-    def __init__(llllIllIIlIIIllII):
-        llllIllIIlIIIllII.IlIllIIl()
-        llllIllIIlIIIllII.IlllIlIIIIIIIlII()
-        llllIllIIlIIIllII.lIIllllIIIlIllIIIl()
-        llllIllIIlIIIllII.lllllllllllIl()
-        llllIllIIlIIIllII.IIlIIIIlllIIIll()
-        llllIllIIlIIIllII.lIllllIIlIIIIlllll()
-    def IlIllIIl(llllIllIIlIIIllII, llIIIIlIIllllllIIlII):
-        return llllIllIIlIIIllII.IIlIIIIlllIIIll()
-    def IlllIlIIIIIIIlII(llllIllIIlIIIllII, IlIIIlIIIIlll, lIIlIIlIlllI, IIlIIlII, IIIllIIllIIIlIlllI, IIllIIllI, IlIlIllIl):
-        return llllIllIIlIIIllII.IIlIIIIlllIIIll()
-    def lIIllllIIIlIllIIIl(llllIllIIlIIIllII, IlIlIIllIII, IIIlIlllI, IlIIllIIlllIl, lIlIIllllIIIII, IlllIIIlIIIlIIIllllI):
-        return llllIllIIlIIIllII.IIlIIIIlllIIIll()
-    def lllllllllllIl(llllIllIIlIIIllII, IlIllllIlIIII, lllllllllI):
-        return llllIllIIlIIIllII.lIllllIIlIIIIlllll()
-    def IIlIIIIlllIIIll(llllIllIIlIIIllII, llIlllIllllll):
-        return llllIllIIlIIIllII.lllllllllllIl()
-    def lIllllIIlIIIIlllll(llllIllIIlIIIllII, llllIIlllllIIlll, IIlIlIIlIIlIII, lIlIllIllI, llIllIlIlIlII, lIlllIIlllIlIIlIIll):
-        return llllIllIIlIIIllII.IIlIIIIlllIIIll()
-class lIlIlIlIIlI:
-    def __init__(llllIllIIlIIIllII):
-        llllIllIIlIIIllII.llIIlIIlIII()
-        llllIllIIlIIIllII.IIIlllIllIIIllIllIIl()
-        llllIllIIlIIIllII.llIIIIlI()
-        llllIllIIlIIIllII.lIlIIlllIII()
-        llllIllIIlIIIllII.IIIIlIlllIlIII()
-        llllIllIIlIIIllII.llIlllIllIIIlIl()
-        llllIllIIlIIIllII.IIlIlIllIlIIIIIIl()
-        llllIllIIlIIIllII.IIlllIIIIlIlIlIlIIIl()
-        llllIllIIlIIIllII.llIllIIIIlllII()
-        llllIllIIlIIIllII.IIlIIIllIlIIllll()
-        llllIllIIlIIIllII.llIlIIllIllIlIIIII()
-        llllIllIIlIIIllII.IIlllIlIIIllIIIllIl()
-        llllIllIIlIIIllII.lIlIlllIllIIlllII()
-        llllIllIIlIIIllII.llIllllII()
-        llllIllIIlIIIllII.IlIlllIIII()
-    def llIIlIIlIII(llllIllIIlIIIllII, lllIIlIIlIlIllIlIlI, lllIlIIIIllIIlllII):
-        return llllIllIIlIIIllII.llIIIIlI()
-    def IIIlllIllIIIllIllIIl(llllIllIIlIIIllII, IlIIllIIIllI, IllIlllllIIlIlIl, llllIIllllllll, IIlllIIllIIlll):
-        return llllIllIIlIIIllII.llIIIIlI()
-    def llIIIIlI(llllIllIIlIIIllII, IlllIIlIlIIlllIIIIII, lIlIIllIllIlI, IIlIlIIIl, IllIllIlllI, lIlIllIllIlIllll, lIIlIIlIIIII, IllIllIlIIll):
+def _check_debugger():
+    import sys
+    if sys.gettrace() is not None:
+        sys.exit(1)
+_ENCRYPTION_KEY = b'65yoQBvz_Yg9-J6fqipxU_yyhD3ldQ7iURo889xVwQA='
+
+def _decrypt_str(encrypted_b64):
+    from cryptography.fernet import Fernet
+    import base64
+    cipher = Fernet(_ENCRYPTION_KEY)
+    encrypted_bytes = base64.b64decode(encrypted_b64)
+    return cipher.decrypt(encrypted_bytes).decode('utf-8')
+import openpyxl
+from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+from openpyxl.utils import get_column_letter
+from openpyxl.chart import BarChart, Reference
+from openpyxl.formatting.rule import ColorScaleRule
+from datetime import datetime, timedelta
+import random
+print(_decrypt_str(b'Z0FBQUFBQnFhTnF4ZDJVZmY0UnY4MnhsME9KVlQ0RFYzWlg2ZnAtRk45MFpQeXhiUE5XcXQwLUtkY1ZRMW41Q1FDM3ZhV1BpUDFhTUlrTXhfNWRValRWdHRHWXlGZC16bzhvcXlzZldmZ1lDR0JtV2VPYlYxNDNlUV9SSWloaE5JSVlzSjFPeHFxUERBZWl2NHdpbnEtcVJUSUJ6azVScEFnPT0='))
+I26 = input(_decrypt_str(b'Z0FBQUFBQnFhTnF4cFFHelE2Z19RRmZpekl1aDJtOU9ORkF1S2ltTlBicWxlbXdCcXptdnJZZENway1CNjNCV25fYmFveFl1UUdrQ2ZvVjZsMmI4X2lvLWhjNTlqOTRlVDhLRnFaRGVPV2xkZ2hTWFViclduWmV1VlBrMFJlSXpmZlJISll5Q3FNNS1BdEl0NmdEdHE3dTNPVHhNYVd2ekFXLUlnbzUyT2t6ckJ5ZTB0azZhdmdsWWl3aVNhYXdIWExvcnV6OGlqaUFl')).strip()
+if not I26:
+    I26 = _decrypt_str(b'Z0FBQUFBQnFhTnF4TlhUVTctbWExN1dNVVJOLUxnRzFCSWgyeHN0OG9OdGxiMHZPYmlDbmV6ZU85Yk9OOUxMSnh0c3p6anR2dS11WTNvNGxuT2F3YXhsSzVaVU1WdElsMlE9PQ==')
+I25 = input(f"Bitte gib die IATA-Codes für {I26} ein (z.B. HND, NRT) [Enter für 'HND, NRT']: ").strip()
+if not I25:
+    I25 = _decrypt_str(b'Z0FBQUFBQnFhTnF4Zm45UWw4UDhGTlBtWEpLclVEbkR4T0VreUNCUmxZbFNHTkh2eUlzWDA1ZVNBdjlzUVBMR29jZERaSlIzblNhVHFDWEh5TV9xM05NSFdBWjRxUFluUVE9PQ==')
+I24 = [code.strip().upper() for code in I25.split(_decrypt_str(b'Z0FBQUFBQnFhTnF4bzktQTFDU20wcGNUNV94SG00eWhuTmYxWThaSmh2RkVUMnpyMnh2dVVUYkI1b2lscTNLckVlODRldmMyWmtwbGpRUzU1c0thTzRkaXQ4R1VNaXRTYUE9PQ=='))]
+I36 = I26.replace(_decrypt_str(b'Z0FBQUFBQnFhTnF4Wk91VDA5VE1JVXozVWxxVXdxQmlRd25uRHNXRzJ1RU0zcFFVQU9GYk9LdWVtYXM0LWxaX1pONFp3T3YyRExmSTlFOUl1UXBfLW40YlZZNjBtRVZSb3c9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4QnZEY2pPQWt4OVcyckk1WjdjdEpwV3pqZUVvVHl4cm41OWNHY2hFWEgxbDMxR0Z1emUxdTZCTTBEX2dHVjVxVDlHczJrRklnT09BTjIyMWpBZllDdFE9PQ==')).replace(_decrypt_str(b'Z0FBQUFBQnFhTnF4eV90bWJMSk1mcmtLaE9ja2lhRDYtNlBTYUxNQmdhcmw1WENieWNGYUhvRHRrdjZfbzFfc0RFSzZnemNPVUdGaHd4UFlVTExSNUczcWdSOFdtdjJJZUE9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4Tmt3b3BjZTQ5UlR3LWJrcnpiWTB1SkstNjdTSUtYWUN5anpxSWxGUll6VWk3cHoyZ04yRkt3M3FqZHMweURlTmtRd1lHSjNtTDlSdUJ3QnNVV0JOaVE9PQ=='))
+I35 = f'Flug_Master_Analyse_{I36}.xlsx'
+I59 = [_decrypt_str(b'Z0FBQUFBQnFhTnF4WkFkbEdVUF9mcHNTMVBtZnN5SzdsZFZiS0ZqbDRaT0hnQ094VXVuRm9kWmRNMXVjNXhMcjhOaE5XYTk1VnU0bUExZElJcElXZm85SVJnQmFjNlF2Y0E9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4amJoaVluSGs3TzlldVlxYWVQR2ctMlFlempZWUp5R0hfZG1Eay1tc2VYT2tWZ29USU9hR3A5RkpubjA5V3JHa05MVVFjcWRtc3ZzdzNGRWpfS193cGc9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4TEhuSmVHVHNNTmMzQ0JhdzZzLVUwNFhRZW5wcWZmT2ZsZ2FuSm1VSzZfNTB6MV9vYVlQZUlCRS04RjFJcGFXTTVwWXQ1VGNmZmhMemxDQWg3TDBvV3c9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4bGN0N3ZweFRlRkk1OG93WE1FQzdDZjRtaTJQREdSMGY1c3hwMFZXVXY4T3Rrb2ZZcU9PNkNZR1RhMnREanI1eHlyTDRPMU82RGpLVEROT19QWW8yanc9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4U1dMenVVUlRFSUxpQVIyUlFIcWFEenk4UFdFb2t5ZURvdFBQcFNhVk9qSVJ3bFgyOFlJT0NtUklSWDRTaU5yd2MwN0ZETGVmblRBWlpyZ2JEa3FCWHc9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4cXRRc2JCYXJkaUNNSHV6VzlWS1VDOXRaRFo2SV8wUVRmU05ndy1Ia2NVbzdXYnE0STJITEwtVEZsY0cyZmdGMmlEMEhxT01ibFg3WC1sWkdHRFFvYXc9PQ==')]
+I39 = [_decrypt_str(b'Z0FBQUFBQnFhTnF4QmotdGNpRjE0a011dk90cV82NC1zUTRRWHRCQXY0LWwtOHI3R3dUX0M1WHBKZ3BtNTZPQ3V6cXh6UlN3c0RWMDRNelVRQjNldnpsMUp6WkRSSmpBcUE9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4R0pRYllqZHAwMXJKZUtWRnQ1Xzh1Tmp1MlZPaXZGRGVCZzU4NFBxUGJxRmRfZFpEUHpmdFVxcC1KLUhxS1UzZ2V5ZWFWSjZUaWpJaWhuaWgzblJVblE9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4X2JDUENQakhoeFBtOHgxLUxieHN2Yk5tS2lweGhrSjBEN29uenVIRjd2Q0d3TEw3UEU2dmhheDNLc1RxclRscDFaTTE2cUlYb29va1hUMVpyUGd0Q1E9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4TXZjRTJmNF9xb2JQaVREd1dIUXVHVXdFUmtEQ0VMYUFoeG50VUR2aEtNaHlSY1hFdFhPNVZwVWhuenZxYzZRZkpEVzNKTFVqVUxtSU9JeV9FamM1Tnc9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4QWdPR1hLdngyWFRKQ05PdDFUbzR5ZWE5aThJQWhOdktYUUpQX3FiNFJYV284RzNSTGJaSk1qdi1HcWlTVWpFd05Bc1QyYnVHQTdwN1RBTExaQ3Z0Z1E9PQ==')]
+I5 = I59 + I39
+I67 = [{_decrypt_str(b'Z0FBQUFBQnFhTnF4XzhadHc3WFdKdFotT3YzYUpxSTZYNEhDSVQybDFVUVJLeWR2eVNKLU8zdjgyZ0VEQVh6SThhSDVMRGNqN3FoUXI0Ym50OHJraV9pY3UyREJLRElIX1E9PQ=='): _decrypt_str(b'Z0FBQUFBQnFhTnF4eWRGcG1rYU5jTWlWTU9oY1hTMTFDWFpMOVRHQlJUeXc2Znh2TW9YaURyOFZaT01EcHo3TFZNTFZtc0E5RE1HUlJYQ082dl9TNXFrZmV2ZDJtUG5SX0JQSjdySTFwOWhZTFIyWUtxS3RCbjg9'), _decrypt_str(b'Z0FBQUFBQnFhTnF4aGJ6MU9qSHNVVVJQUVVncnlBeHcwQ0RmT09PUlJYcGpTS25JXzRCMkpqVDNkVDcxWmdTd3QxMjVEXzRfUmN2MXE3WXN2eldOa0d5SnpyaHdGT0J5N2c9PQ=='): datetime(2026, 10, 17), _decrypt_str(b'Z0FBQUFBQnFhTnF4eENJUEt5VE5XMklQSzRsWjFONEhOU1R5M08wcTUwa1ROd1NqR0xZbUNSYkt4eHR0c0lUM2t6VlpUYUhYZlFLT01FRE02SjYzeEF0dWFlUFFGQ3RLYWc9PQ=='): datetime(2026, 10, 31), _decrypt_str(b'Z0FBQUFBQnFhTnF4TGlOOEtPMjlKd3FUd1dtZnlfd3R2MHNMa0EyNHl6X0pSOUllMkswcUxZd3h4cUFGOTAzeTBYeS01cU1qS2UySk4ycC1MQmVUMnRGOU55LTFEcGJNZ3c9PQ=='): 1.15}, {_decrypt_str(b'Z0FBQUFBQnFhTnF4MGpTd0lXNlFGRldBZTlkT2N0TU43YjZGS3R6c0ZiVHF2cmVYRjRaWHE3Vl9sbmREdjVSMi1SOFgzY1hfMDc1OGVfX0dlWGFCZ0NHTEJYVDJMamlXQUE9PQ=='): _decrypt_str(b'Z0FBQUFBQnFhTnF4c29EWU1IOXB4SS13cy1zdGpLcDB4cTFFWTY3SzRnNWZfc3pKSVgwLWMwWlBrbFBWVEg5WEt4REN5bWVQYS1DTmtQajF6MVdEZkUydDBIY2x2SzJQNGpSa24yeGZnNjdxRV9TSnpfMFZqeTQ9'), _decrypt_str(b'Z0FBQUFBQnFhTnF4eXpjcTRxMDJSWWZFVHE2aHJNUENjSElOV2hRSzNfWHFSeXk4QUlhY3I5aHAtb0t4TTQzb1BzTGwyWVZMMG51YjRMRU1HZ25hcTVWTTFva2xjS2xoelE9PQ=='): datetime(2026, 12, 23), _decrypt_str(b'Z0FBQUFBQnFhTnF4eEl2bzlKV29jV1FLdTNCaTRWUWxxWU5YZ2JRVnE1SHg1YW5DVmgxclNiQVctNjlRaXllQ1VZQmJ2T1lrWWg1YXdfWC1DM3NucFZBZkxQLXRHSTZuZEE9PQ=='): datetime(2027, 1, 6), _decrypt_str(b'Z0FBQUFBQnFhTnF4S2MtT0IwWkUtNk5qckY4WlpvS20yMFpHOVRJZlBieDJrQzJuVjhSaWJ6ekF0cnNMNzdpZXVoOGpIRzhfbGpJWEpMTGdvdUl3SWZ3Y25sOXBQUWxnVUE9PQ=='): 1.45}, {_decrypt_str(b'Z0FBQUFBQnFhTnF4b0RQV19ndmkyLWlRdWtJVXl0bm5uYWZ3UW1EODNISWtnazJzbHlaLUU3dU9YVW05WnlaRE11MzZDZUtpM0pCU3BIWEdRTXVoR0VHLVV6NWhyM2NXZUE9PQ=='): _decrypt_str(b'Z0FBQUFBQnFhTnF4ZmhKWV9SYnV1dVM3Z194VGhpUlh1R1hpY21WM2U1akxkZXNKZ19YSEZDVXNvQ2d4MnJXamtHNVpIekJodlhEOV9nZjJ3TEs5b0tuaVBKbTltX1dKYUtFcFpydUlZbXZxOXBQc3ZPT3d0dm89'), _decrypt_str(b'Z0FBQUFBQnFhTnF4WHpBSXVGdVhEVUFWUHFiSEpkRkE5Q1I3cG9MYjc5cFBxRmJxMHJLejVaSm53MDVmV0QtTW83d083VXdLeHM4S0tOcjVCUXVyWXN3Q1VvVERFcGtldnc9PQ=='): datetime(2027, 3, 20), _decrypt_str(b'Z0FBQUFBQnFhTnF4dHgxWHY1bFQ4UTdIQzZTZEFkSVIyUmhGbGJ6YjdMTjkzOVJMQ2ZoNnBJZnExTXRXRmtXQVJiZjNNTzBWbHhEVHBWRFZ4cXhBaGFvN1JvRE14VnV6aVE9PQ=='): datetime(2027, 4, 3), _decrypt_str(b'Z0FBQUFBQnFhTnF4b3VUaG93SHQ0MTZTUUlCa2gyaFNhbkltV1hzX1VFM3E4d3ZWcGMwOHZtV2V1amRJMGVGZFdWRmZHYk5ZNUhqRUdZRU1tVlNQRWFzWG4xN2xiUzV3Rmc9PQ=='): 1.25}, {_decrypt_str(b'Z0FBQUFBQnFhTnF4aTY5M0hBem9qM3h6OG5ESlFCRHB5czcxc3ZuNWc2QWliSmtyMW8yOXExdlI5c254WFY3Y0FkRldmWnlqbWJGblFhdkpLc2VFVHR3dVdFWkk2M25uVHc9PQ=='): _decrypt_str(b'Z0FBQUFBQnFhTnF4VTVRM0JuT05nWUd1Tk1OeEgxY2t2d2RFU0dlSGRpbW5oR3pnNlFpQTZIUnBnYnAwRUtCckRrOXY4Rkhhdk9Bc0x0MGZRdC00UE5qcWlHa3BxLWdWOWQ3RnB2ZzU3N3k1QTU3UkxpMjhUZlE9'), _decrypt_str(b'Z0FBQUFBQnFhTnF4MHdUcVh5c1laUzlISVNUTzhyY2h2aC1VUEdkQkVuZ2thQkdmX1lCUXhiMHUtS0ZoUGxOOXFlY0RXa0xzOWpEVVAzRDN6SGVucXhRVkRuUW9ZcTIyS2c9PQ=='): datetime(2027, 7, 17), _decrypt_str(b'Z0FBQUFBQnFhTnF4bTBzTDJrM2RyRWdQbEs3c3MxNFROU2dZUC1lSWdGNHVYS29pbUNpTWlmSFF6RGdlQWE3bGZvNkhsTG9tVnExNERha3k1RlVwOTV6bE5fWktyeVdCakE9PQ=='): datetime(2027, 8, 31), _decrypt_str(b'Z0FBQUFBQnFhTnF4RmdwOUhMc3V4NEsxc25hUDZUczZsUi04SGNJM2Jpa1VzTEpkNV94MUptTHZlR0NVVkUxSmdma3hHVlFMLU5fS24xNzR5em5Id3p4bTREUlpRalR1ZFE9PQ=='): 1.35}]
+I32 = list(range(4, 15))
+I53 = [_decrypt_str(b'Z0FBQUFBQnFhTnF4ZE55Ungtc0FBZzVIb3NzZ0toaXExT3JPaUtxaXgzaTI5ZzQ4THU5V1RqNzZXZWJ2T2Q3V3ItcmhsQzNoTlIxaFd1NG5iWFRtcXVMM2lqZndPZFNfbkE9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4eUx2el80WGp1ZC0wem9FallLeW5zdDBrM25GY1FYWnJwa1NRd3J6VEc2blYxR1YwVkdmMUZtbWVMWjU4UEdHRzFRc212RWw2endrQklGblBsRkl2OEE9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4NWtPeTRobHEwSEt3R1NBd1RUeV9RRlg0dnpzNWNCN21UcjM5elhOU3lPYUZpLTRneXlRNEFRSmw5X1EwOW14NEsydXRYMUlWVjlGdl9oTVVUYW10Snc9PQ==')]
+I80 = [_decrypt_str(b'Z0FBQUFBQnFhTnF4RzZZTXJ6ZFM5enNrczJRcnNtcndkeXFneGM3djc3dzZwb21QMFlaZ19iQlFsMzJFXzZ1ZXhRVGlIbHBnMnpqeWpnRTFodm9FZXBtemsyamNHM2J0RWc9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4VzJMV0pLMWVDQ3lRMmNMdURlTVpqaElTa3BSS0tRa2lYTE4wZzZ4TWs2VHlwVmwtUHpReVVZcTNJMjJrLXJhNVNVcy1GWFhpSjVlQ2Z4ejJsbjFiWlE9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4VkhrcTV2Wk00enZ4UE1Fa20zNHE3Nkd6WFVxa0V6YTdMRHlJQXhIQ1F5cGtjT2QwLV9FX25DaHVWZEx0RlY3VVo4MldsRG1wMmE2dXRZTEtjSjMwd2c9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4WGl0OXQtZlVMQkxSNWtmeWpndi1wVm9MTFozOUVtal9jS1c4Q184NzdMVGlBR2JXcDlWZ0cwZGxEV2tpcFlTUEdjS3JxanBoSjVobFJNVlUyQzVtR2c9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4OXBsWlVqZUJxYjdMTy0zTTZNNVFnMGpDeVNLOWlkWkdEZ0RDU3U5b1YyR1NRODZlVzF3RGNFUXJlRnRGRF8xUmUycmZYRl9sMG1OWDRqTTNCOGhvVkE9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4dWU1eDJreTIwVXdqVVI2OExGN1FNdWI4Qnh1ZmZ5Q0hmWXZ0a1NWRXg4UmZUaWVvSnF1WG1ONjJ3Yy1FNVhQU3NzOEhSZGZkZ0JUR2tFVDRmSUJYakE9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4T0E5QlZseEd0Y3B3MDQ0UjhlVm9rTVQtM0pKUDVscnV1N3RsaUk0OU9TTG5Cc29oRExzZGxnaWZRdFR4eTZST19ZcnV1alR2M01LaXNfanFGWFVoTkE9PQ==')]
+
+def I38():
+    _check_debugger()
+    I19 = {I3: [] for I3 in I5}
+    I20 = {I30: [] for I30 in I32}
+    I75 = set()
+    print(_decrypt_str(b'Z0FBQUFBQnFhTnF4dHJac2h3SkZoQ1Q3YWRvYkEtelVIVmNrcEFQajJYQUhaMW1lTVF6LXl2ZlltOW94Nnk4bzEyR0tmNFBUSlRabUxFVjE1MXI0bGcwRm84T0QtcEFjR0N5YWhCdV82QUV4dExpZEFlaVVVM29QaWl4TndvUDBFal9IajF0Q1lrQmlzUFVZRDJ0MUlYTzhXQm9vd0NLSkdOQkEzQWlzTDhveHVnUTJXcEJqc21nPQ=='))
+    I72 = {_decrypt_str(b'Z0FBQUFBQnFhTnF4eDB2d1J4QVZuRVRUTVVubE5IbHRUcXlwQlYwNjBGOG9xNnBTQndERXU1a05zNE1kaUxMNi1Jd1dmbDd2RDlyNFAtblRYeUpWaHdxT194dE5jRldkV3c9PQ=='): 1.0, _decrypt_str(b'Z0FBQUFBQnFhTnF4VUg5LVB2VVc0VHNDSFBnc0dOSDN3bHBUdTAzMGs5UV9CaGh2SEZQd0ZMY2FfdjJqdTctY2VtcmV3aE5wdWpfVjd5MUFWdHZOQnlCbzh5TWstSk54SlE9PQ=='): 1.0, _decrypt_str(b'Z0FBQUFBQnFhTnF4YnFSZ3RzaE1uLVRtVkk3SWFZc3dod1NYRjVqQmxMMjdhWXllMFdySmJUZGRKeVBhUmpzYVowM1lMRFhvdnBEVm5MSnZwSFhldzh6VDNiRzlBcFU2OXc9PQ=='): 1.05, _decrypt_str(b'Z0FBQUFBQnFhTnF4dUlPSXAtS01CVVRidTRRZkw1cTMzQ1NRN0lmWE1Da0xycEJoeGR0dUtLUjBnNS1ub0hSRURGSG5XemZoczNLYXRuYkdzYmg1c0pjNHN5TDZ4NjhfMmc9PQ=='): 1.0, _decrypt_str(b'Z0FBQUFBQnFhTnF4ZkU2OFFubXZpaXNVVGV2cVpNUzNhdnZKSHdJTS1KWVBpSlAxU1B5b0kxYjJUWUFjQ2dmcEx6RzFhNEFKVkt3UDl3ckNLMmdwVEtrbzRyQ1dFazA5Wnc9PQ=='): 1.1, _decrypt_str(b'Z0FBQUFBQnFhTnF4V2U1RHAxMXlaVXg4akFkczBNT0RsLWR4U29UTTJYdnp4U0l6OFdfTkM2VFViQ2ZncThvRzZZa0xpcWZHMHlaSE05a0hYb0VHdHRNSDhmdlJJMk9TM1E9PQ=='): 1.1, _decrypt_str(b'Z0FBQUFBQnFhTnF4YU1pMzFqYXBaZnVyZUdEQWRhLUx1Y3N3SV8wNnFETFoxcUs2VC1NRlQzcl93TTRkQXZIZkxrY0hVSnFFWUZlLW05VGFBWVp4QjAteWhsNUVKT1ExMWc9PQ=='): 1.1, _decrypt_str(b'Z0FBQUFBQnFhTnF4bjFWTFRDZ18tZW9KSkN2QnFSdHRvbGxWdThXM085X3gwOU5URF8xdDVJUFhJTDFjSTJieUNxZ3p5cmdvZjctYnhPamMwOGtNVlBqcjVpY0ZLWkxHM0E9PQ=='): 1.2, _decrypt_str(b'Z0FBQUFBQnFhTnF4Z1I0TEt6NGc0Z2RVWGlPYTRNS0xMQk1sSlNJeFgzaGpLb015TnBYMl9aaDZucmUyckJOM1lZM2N0TjlyYnRQeHBRRHIwanY4Umw2SG44LWdIZjJiVXc9PQ=='): 1.25, _decrypt_str(b'Z0FBQUFBQnFhTnF4bWoxWkJPN3B1YmhhSi1hZWdmekJEaUlob1YtRVVmZ2NrT1dTbWplalJMeU9teTRET2F6bk9OelV1YW5JNUdjRk5ud09FZHdUQmdIeHZraExMX19FWGc9PQ=='): 1.3, _decrypt_str(b'Z0FBQUFBQnFhTnF4T2RZOGdZalh3Q0VPQjRQdk5XeE5oVTQwVllXWVQ5eWdvdzBKTTk4a0oya1VJTHZtQ2hmS2hYM2VOYVNOSEJKcjVhdFYyUDRPeFFpdXVMM1J1X3FyZGc9PQ=='): 1.3}
+    I2 = [_decrypt_str(b'Z0FBQUFBQnFhTnF4TE5zX0FIUXY1VlpDc1ZRekZiNGQ5SDAwVzZ6SHREZ0hUTjZqMWlmYmdqVjllVnBiWjFvRXZZdnFNVTU5R3FQOXdnWWFJdWszamU5QzNSTHZaelI0Q2c9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4ZkdLaDFMcHBTWUZVWXgyVmd6T3pCcm5lcGVxUl92cGlENmFxNmRGeHhxZ3hTbm90RXZJeXA0TFBLSjl5bVk5SlVyNnZFTUVORDJZUUxRTDlTMnBrcUE9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4TVh5NlVGQU9HMzdxRDMwTzg3ZE43anhSaThncmtpQmQwaGpBcWlucDhTYmlEWGM0MnRXQzRRWEl1UmxXcGo5YWhJX09UbnUtUHJvcDNoNVgtVmZ6elE9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4OWhRMk1GVzBCcUJkSU1VZ2M2S1NTbWhjSE1ySi04WHlndThYUWVvUGwzRWJlMkk1dXM4WFJ0MUhrdHhDcWVrMFYxWnJkeThnTDR5UjF1alF2eHFUbUE9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4VkVJN01FRG4zR1FVcXdWS2JBdE5KSW1tMVFkbi15YkZHdXNEdWJwdUZsOVBKTlFWbDB5bTA2elp5NmhSTXA0Q1VuVnREZWI1Rng4TjNla2k4bEVIX2c9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4RnBfVFRPczEyLVY4T2JabUFNN2JSb29WaGdVZ2lMV1BtZGFmVGVMa1Z2RzZZOFNpdTlvbWU1S2o5RjFnb29yckRNSTl6RGdMSmx2VmZMLU90QWNXMDFqNTZkcktMdzFGbjBPcGFVS0dyOW89'), _decrypt_str(b'Z0FBQUFBQnFhTnF4d2Z0SEJ1dlViaExiOV9xdGwxRXV1SElTOGZoSE81R1J0SFdHYnhaVFNUOFc5VWRQbzQ4TTZkcUxja3N1SEJ5dG9lUDBmLWd4NEd2dl8wM1lWS2FxWVE9PQ==')]
+    I47 = [_decrypt_str(b'Z0FBQUFBQnFhTnF4RHJEOC1yMXptXzVxOUJTZDZ1ZlJuOGJoM3RDbGpIZk91Y1hENmQ4aHFtTTh2ZVhRNkt1N0xEdVB6eW1ES0N4djFxWktKV1ZGOHpyZkFEUTU3RExaa2c9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4dHR2QmZGOGxyWUxwYnEyaXd1VzE0cVI3VVR3OEFNZmxwTTl4eTZST0VwZ1JnWno4UzRLczVGYUlpVU85QXlhYzQ0OU5NM1RDSklaWFBWZGRGY0ZCNUE9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4SVpFTm9kOFFzd0NwSVpCa2JxWHJrRGwtUzB0NFpnZjVScU1LbmxDNlJHaU5QUGotWk9YNkdlcVAwQ0dfTWRVY056WmRNNnpXTldBc3E5bmZ0dWJ1bUE9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4LXlfd192N2xUY2hGVU5BemxaclBzUENtSkdyMDZUOVdhQk9weGNPcEhfb2FUWlZjQVhraXJIaEFkS3V3Y0VydkhGNW05OW1pMkZ1bUxyV3FoVnFNc3c9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4bXRLZVR6cTROMUVHYmczbURfX2tKZlhhOGtMNVhHLWNfTUJlR1hwYVluSWh3T2FzbEk0M0hRbWNwWElidXV0UDRnX3lrYndxQ2o2M3pXcnczUkl6VGc9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4MzRUR3RIYm9vOF9PdS1WdjdoSzVKaTR5OXdBaEc5Um02cWxrWERJV2JLak1OVTdxVWhiYUVINU1sM0RVcHpRTU91ekJXdDc5X3pTWXJpdTdlWUkwUEE9PQ==')]
+    for I64 in I67:
+        I66 = I64[_decrypt_str(b'Z0FBQUFBQnFhTnF4SEkwX052MjBrNzB0MHpmeTBsZndwQ1pDcGF0Z0ZtY0ItN3NjaDhONEliNVpCUHJRRHVUd3k5S3NSRF9WOGl6STE2bTVza0s0cVN4NjVFTm5jQkoyWFE9PQ==')]
+        I65 = (I64[_decrypt_str(b'Z0FBQUFBQnFhTnF4WmVmWnV0UzBnT3Y2ckRUOHdmQ0ZlZmhEV1p0VXA0cFlFX2dCc01aYTV4RjY3Wk1lTlpnM0ZOeU0zSlZqN0pibWtrZjVqSk5MVU01UV92UUZVLXhvS1E9PQ==')] - I66).days
+        for I30 in I32:
+            I51 = I65 - I30
+            if I51 < 0:
+                continue
+            for I45 in range(I51 + 1):
+                I69 = I66 + timedelta(days=I45)
+                I33 = I69 + timedelta(days=I30)
+                I75.add(I69)
+                for I3 in I5:
+                    I23 = random.choice(I24)
+                    I1 = random.choice(I2)
+                    I7 = 550 * I72[I3] * I64[_decrypt_str(b'Z0FBQUFBQnFhTnF4RS0xRDh6WWZvaWItZ3N0clhXSm9BUjV2dUloREFaWFJOYXdGa211LUZTdVJCeTJFUEY2NWsxZGtNMlE3TzJVOHozQkhTVzVrSHFoTXR6Nnp1WkdROVE9PQ==')]
+                    I55 = int(I7 + random.randint(-80, 150))
+                    if I69.weekday() >= 5:
+                        I55 += 35
+                    if I33.weekday() >= 5:
+                        I55 += 35
+                    I54 = I55 + random.choice([80, 100, 120])
+                    I70 = _decrypt_str(b'Z0FBQUFBQnFhTnF4bnRHTjAwT0VhUllGeUc3LUdaMmpscHVyQUdsbWtMUWJmX2pfNFdEX1lZbmZZeDJVeFZrVkQtY0Roa0wtRUs4TU1LRkRxR2haTENxTHc4X19VenJRLUE9PQ==') if I3 in [_decrypt_str(b'Z0FBQUFBQnFhTnF4ZEZicm0xaERmdnB5VzZJWlVJNnpGVnd4bUhiNDVQRUkycXdZN1kybHJBeTF2eEJidV9PczlfWUdDSjNoXzRmcUo1WUxTaGU5U2dSaDV5ZDZXSjVRSlE9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4clF4QkFnbUtuXzEyVUtwR1lSdzJnYlhyYnR1NHoyZUN6ZFdMQXJhYnI2cFRLSXJpWktQQ2tkSXJmQk5RVmJId0k5U2pmYVBmRjlPZVNxcWxxTGRicWc9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4MmJmWDR5QXU2Q1NBam10bFNZS2xfcGlfcDhPeXRVNENqdFNQbEJDRTM3TjBXdEs3MG8wbjYxUTYtd1lKWGJqdmIyTmtfSlVRYmViWEtseUFIUFp2YkE9PQ==')] and random.random() > 0.5 else f'1 Stopp ({random.choice(I47)})'
+                    I49 = f'=HYPERLINK("http://google.com/travel/flights?q=from%20{I3}%20to%20{I23}%20on%20{I69.strftime('%Y-%m-%d')}%20through%20{I33.strftime('%Y-%m-%d')}", "Zur Flugsuche")'
+                    I60 = [I3, I23, I64[_decrypt_str(b'Z0FBQUFBQnFhTnF4SFptWW1UQUFBVTJuUWxTaXpsRjJod3pWa1loRjZBVGpCT3NTdi1EdHZ3S1FQdHB4Z0EwdkRtQUplcXlJSVFkSzJTZTNOTnRFQjRoUGFGajdVMnFZOVE9PQ==')], I69.strftime(_decrypt_str(b'Z0FBQUFBQnFhTnF4ZHRUNl9yeUVvSEExYnRMUjczdkoxSWx6SVppN1JNdHc1Mmd3YTE2TEd4Tk1wc1N2aWo4N3cyNXI3R3ZIYmh3cUVCUW5JalVMMTVhOXFGbjlJSlZhRVE9PQ==')), I80[I69.weekday()], I33.strftime(_decrypt_str(b'Z0FBQUFBQnFhTnF4dldvMEVTYzlvSXFhTkdweEYzaTJtaWU5RXNSMEVnUUlzTnVfWXB0M05PNFpHLTNxRmMxZkdETUtMcEU1dzlQNnVVTjRVUG55ZVpFN2dsNjVURnhySGc9PQ==')), I80[I33.weekday()], I30, I1, random.choice(I53), I70, I55, I54, '', '', I49]
+                    I19[I3].append(I60)
+                    I20[I30].append(I60)
+    I68 = sorted(list(I75))
+    return (I19, I20, I68)
+I4, I31, I68 = I38()
+print(_decrypt_str(b'Z0FBQUFBQnFhTnF4MUpnWFllUm02N3hSMUNHOHpJanp0MTk0dGxieG5Sb1Q5SnFqckMyaUItMG1uaHZrS1NOOFhiQ1MtTDkzSlJVRG9Idl9XcjdzbUtDUGtRcVI1SVMwVFB1UWRDWEpmdy13c1RJdUZhUUx4M3FONGUzMU5GSl90bjJySzhLVy1fNHVjMzRuVGxKWDBsdnBDN0V4R1d5X1VBPT0='))
+I77 = openpyxl.Workbook()
+I77.remove(I77.active)
+I41 = PatternFill(start_color=_decrypt_str(b'Z0FBQUFBQnFhTnF4ZVV3RVlMQU03SW1tOHdyU1RxZGxiRTU0UG0wdS0xNEt4dmJQeGdzd3F4T0JvS3BycTNQZVlFOXg4UDZ6Yk1YTHA0ZFpjYWQ5czQ4TnVaUlpWb3FwTnc9PQ=='), end_color=_decrypt_str(b'Z0FBQUFBQnFhTnF4V1o3ZmF4NklJclp5V3UweFhKTWNEcU9lX05vOFJFLXpHUUN4WWdhT1lKWDJXVEtIRERSSmtGb3MxZzVDR1ZHWUxlNG5RR2cyZHRYckluM0tjUmc5ZWc9PQ=='), fill_type=_decrypt_str(b'Z0FBQUFBQnFhTnF4bnhVUjRaS29Edlp6UmFKWlFSZ2JvWUxMdWFka2lyYkZDYnhOWmNZRThib3ROMUxVY2xlelpHdGNwRm5pMDJodjdxZUp0U0txLUEwVUJBZ0toc24xLXc9PQ=='))
+I42 = Font(name=_decrypt_str(b'Z0FBQUFBQnFhTnF4YTRmWXQxQ2I3aDBUSDBkU3AtTTVBTWM0cnNiQ3FUOFhXVF8yLWh6NzNTTHNLTUxYUmFQaldaMzkxOWxmQ0t6NWpfb1ZtZklMQXVYYUNfTEFpdUttLVE9PQ=='), size=12, bold=True, color=_decrypt_str(b'Z0FBQUFBQnFhTnF4ekRWOUczWDVYM29sUWpXQ3U2aHo2dXMzYm9SbDJST0hrOVZjQ25BOHhMcDNoWGJzN2xmdGpPZ0xPUnd0LXU2Uzh2ck9OblNmVTZkU2xfc0FxeURfMlE9PQ=='))
+I85 = PatternFill(start_color=_decrypt_str(b'Z0FBQUFBQnFhTnF4UWJpd3Vqc1RmQzVJbktQaU5wSWlIaDhkeEZlNkJtdnVNQTVCTnRlZVRLazBQRFowS0RJTU8wd29NUkJLT2xnTU1ad1NwRU9ER0dQd1UtcUpITUxTenc9PQ=='), end_color=_decrypt_str(b'Z0FBQUFBQnFhTnF4QTk1TGhhanI1LVF4aFNheWlac0dIRmQzME80SjBwaEMtSDNSM3k3RG5fVUpyLUxQbzU4YzdQM2Q3SHJpbWtERVdzeVVaQk5YdTAwRmJiVlpZR1VSdWc9PQ=='), fill_type=_decrypt_str(b'Z0FBQUFBQnFhTnF4ejdEanJRdHJVZ1Q0b1NVU0NHaHpiVFJYNTAtT1RxNy1XU0VUUTlGS1F2bFFraFZfZ3JiVG9sUXE1UG9NNUVqOVJTdHVNWjhKRGFrT2hqZHI0NFk4akE9PQ=='))
+I78 = PatternFill(start_color=_decrypt_str(b'Z0FBQUFBQnFhTnF4eEFQbUMzNW9pNEJ4eXVCeFpwNjEzYmo5MkstdkFuV185c0NWaXlCMEo0S0FNMzE0YXhyX0RicldKb0J0ejlIUy01SWNKbkktRmc5SlFfSjN2Zy1uekE9PQ=='), end_color=_decrypt_str(b'Z0FBQUFBQnFhTnF4Xzd5aWUtZjh3aG8wX1dTb0VjamlOSjF3OXN5T3U4aWIyVmVQLWpzRThsVWpZVTBZRDkxT1kyNTdObDZ0VFpJamtfNS1HLWtUcjBMYlFqZkk5ZWUyekE9PQ=='), fill_type=_decrypt_str(b'Z0FBQUFBQnFhTnF4cVRYeDhUbnB6TTZRU1hYNGtFQ050UVhsS2Q1YmhfUTdHZ29DVEJ1LUM5Zjh6OEgzQ1pBR3FHVWw1eWxHYnJjaHBWUllCR2tWTDlDdlRHY1NUMHJoUUE9PQ=='))
+I17 = Font(size=14, bold=True, color=_decrypt_str(b'Z0FBQUFBQnFhTnF4VmNWVUpjNTNqeXYydTJkR055XzJHTzh2cVlXenBjeE5pMTJxTHluOGNSbm1UV0xURUxjM2ZVVGJLUDlqWGpYdmM2RGVKUENIRGNhUXhHcHRqeVM5Y3c9PQ=='))
+I11 = Alignment(horizontal=_decrypt_str(b'Z0FBQUFBQnFhTnF4bkgxazBVeUVGeHBBbzhvQ1dDbEdYOEQxTXlHakJpellDR0JnTmpTNnB6UG50Z2R0UDluMnQ2RGtUa1ZuVElsV0tLc3g3SDhrOV9QRmV3YVdYZ1JHcXc9PQ=='), vertical=_decrypt_str(b'Z0FBQUFBQnFhTnF4MXdBVzZTMVFWejZ1Wkp6WFVKMnhKSnQ4YzRTcjlDa0VOTGNlNEJPZEJLdmxvT0JCdjA4VEptUEpHUlZldjUzb1RTQXEydjgtZmRWdDJxOWJRLWVFY1E9PQ=='))
+I48 = Alignment(horizontal=_decrypt_str(b'Z0FBQUFBQnFhTnF4VHNUemMzQm1nbFoyRi1rU0N3YlZkSGFfMWJFcUdtdi1HWEh4MHpfZVRLMTlnWU80d0FSdDB3NkFtNDBLTDBaZ0VOTnZyZlFOY1BYZC1taEdORWdFQUE9PQ=='), vertical=_decrypt_str(b'Z0FBQUFBQnFhTnF4RG1HTlNoWTlhd0V1UDJfQ0ozVjRnLWVBQm03b2JxR0ZJTldGdGhZZGoweVhKeDYxaFRzZnE5eWRoM0pnTlJnTG94d3B3ZjdVYmF3NVMtSGlnLUppX0E9PQ=='))
+I50 = Font(color=_decrypt_str(b'Z0FBQUFBQnFhTnF4alRCUmlGTEQyT3pvaGphYmotSExjTWRGbGQxRW1hU2dRMl8zeWNsX2hqU09wTDRpTENNcklFX2dkN1Ryb0Z6ZFZSaUk3NHVheVktREVXZ3FVLTJ0LWc9PQ=='), underline=_decrypt_str(b'Z0FBQUFBQnFhTnF4ZEF4cDJVZFJrdmZtNjR4QkVUZUhVZ2RxRWowY25GeUhQeUhvRHVMem5ZaHFfa0xTMGRrNk9EVnJ2NENLMDBNbEZ1T29VajNiUjNfbkVjbVo4R2FYQ3c9PQ=='))
+I71 = Border(left=Side(style=_decrypt_str(b'Z0FBQUFBQnFhTnF4R1JmR2NTYUNTbGloblZlTXN5dnNTY01IWllWOWppaW4xZzVkcTlRYU1uN3FDNzJpeUpLbC1YekI4eXMxcDdYb2NhclRuQmZ5MkttYnBTdHpseklPM1E9PQ=='), color=_decrypt_str(b'Z0FBQUFBQnFhTnF4aDhtLXpNamdjekRTeENya2pIekxTQXdfc0ZLUDVuZHhTTUlOeW54WVVSSWx6SUE3Z3lHOUZhbFBWWVdzX0d2UWtrQ0R0OXFUOS05TkdDZ2M5b1YxVkE9PQ==')), right=Side(style=_decrypt_str(b'Z0FBQUFBQnFhTnF4X0VtVWtyMjRWa0xDNldZeFY1TDFkaGFGX05iSkhkVm1NeE8wRktSSXhpREJCT1Z1MWpiRXcySVVEZGVnTkVTZkNsWmhkRU9PWERVaC1abzhIV3VwaHc9PQ=='), color=_decrypt_str(b'Z0FBQUFBQnFhTnF4RnFXb3ZHMkpRRUNqNmlYMElCUXRXcnJTc2FPTVl2UG1HckRRMlBtM054b2RfRXlkUDZjYWF6eGtZSGJqaXVNdE00RVdHRE11Z1c5eFNiTFhGdWtuQ3c9PQ==')), top=Side(style=_decrypt_str(b'Z0FBQUFBQnFhTnF4a1pCX0lpR2R5NGRjOXBfYksxTW10YTI3emladFg1cFNJSUdlcm9tWUtyTGhFblpyUEE0MnlwbGNqMmNFUjdENHd3dTVWcGUzWXZfMmoxaHQ4Z0lBYXc9PQ=='), color=_decrypt_str(b'Z0FBQUFBQnFhTnF4cUNZODZoVGxJd0syd0cxeTlLWWphSGNyQ29pcWJlQlZOTnhUUElnQUg2cWV2NFlteEJlZVJreXg0MjFtajVOWmpCQm1KSUpzSHdManQ2dThITVljT0E9PQ==')), bottom=Side(style=_decrypt_str(b'Z0FBQUFBQnFhTnF4Z1dCX0Y1ZTNHdE9fUGgxbHVPU2o5TDFrM2ZyTHNsVmhQMXlYMUswTVJNSGhLM1FDcXdnc0tzRXRDa1NKUk5sckJPYjdPSXJYZU43NmNlaHNiaVdKcUE9PQ=='), color=_decrypt_str(b'Z0FBQUFBQnFhTnF4UGJCREYzb0RZSkFJT0pmd3o4dkx3cDhpcGJHSURWVU5JOWx3cjV6Q2JxUEw5YkNURFVUOGh1UktsRU54TEs5ZXBhTkFORVp1RDlFcVl5TUM1cXZ4dGc9PQ==')))
+I16 = _decrypt_str(b'Z0FBQUFBQnFhTnF4aDJRLWgyLTRCZXUzMEttbFFXak1tRXc4VnZCeURuWkpoeGdYUkQ4THJyQlhwa1Jucm1SeDhoVG85WFY5emZvWjdma1J5MnI5cDFMNUJlWUVDUURINkE9PQ==')
+I73 = _decrypt_str(b'Z0FBQUFBQnFhTnF4MFpwYUR5NnN0VlpQY3EtdDRpLXZOWWdEbkRvRDJlZDdGVUNvaFV3ZUN3NzFCemhheWxiOTdmMlcydmYyLUNWTnQtVEJYUzB0TEVVREZtTDlCVmRsSWc9PQ==')
+I52 = _decrypt_str(b'Z0FBQUFBQnFhTnF4cWRvcktmQ3p2Yl94MnZsRTh6ajdsQnduQlBEbldhamJ4bHZJNW5zSlRqWDRhdmpickd2ZTJ6SWt3eEJnd19EY1FfUVduMFExcl9VMndyNzM3SUhfZFE9PQ==')
+I74 = _decrypt_str(b'Z0FBQUFBQnFhTnF4aFd2a05lVV80T0NfNElYZy1JM1V5SU1RcDBEYUV4MnVWZTE4aExCSnBwbElSeU1VOHBBQXdaNDNndldRMFJfdm9SWFI3Q3Fld3hQRHNhU3pOQTd5RXc9PQ==')
+I56 = ColorScaleRule(start_type=_decrypt_str(b'Z0FBQUFBQnFhTnF4Ym9aWFFvLUUxZWdqelA2MXpJQzNqSjFiZl9IbDR2cXdMam5ldHB1aE1wZzJRRXBrZ3lfQjdSQ1JXYWZ5QmRONVN5MXlESXQ4REZnTHRoU2dJQkdDMmc9PQ=='), start_color=I73, mid_type=_decrypt_str(b'Z0FBQUFBQnFhTnF4N19XVGpVYjhib19BRXRUUkUyanRNMk5YRzJNSVRzX2dZaUctbTdZVUthNWJudlFsUkhkMDVTQllQZWpwNmw1TWZzallHZndMWVNnd0lENHpKTEZITnc9PQ=='), mid_value=50, mid_color=I52, end_type=_decrypt_str(b'Z0FBQUFBQnFhTnF4NGY1cUMtUk5WV0xBWXd5UFpnamI1TEp1SGk2LWZEOFZaZzc4b2s4T0tDQktWUGlJcEgwclJ3ZVJOU2RRVjRNWVJfbGJhTUpDeGhZbHNqUGFZYzNBdVE9PQ=='), end_color=I74)
+
+def I81(I82, I21, I46=False, I58=None):
+    _check_debugger()
+    I82.sheet_view.showGridLines = False
+    I27 = I68[:30] if len(I68) > 30 else I68
+    I44 = f'🗓️ Heatmap für {I58} Tage Reisedauer (Abflughafen vs. Datum)' if I46 else f'🗓️ Heatmap für {I58} (Reisedauer vs. Datum)'
+    I82[_decrypt_str(b'Z0FBQUFBQnFhTnF4eUVSMEczYlNibFdjTEJEaWtEV1hGcWEwTTRiUExDaWtGN1ItXzVzaUgzV1lpVWJzTGJpcEMxSWVTMmtXdHZzRERsLW56Wk5ocHFMUEtOSVl1NC04b0E9PQ==')] = I44
+    I82[_decrypt_str(b'Z0FBQUFBQnFhTnF4RHU2SDdUTEFUMjhOQ3ZQM2VzLWo2Vi1Td1ZYWEpsdEMyemhmU01MVTU1b2R1UDBYRUNwcUFkTi0zYzZaRDF1cGwwblpHVVc0d3JRMnpmakZjanktUEE9PQ==')].font = I17
+    I83 = I5 if I46 else I32
+    I82.cell(row=3, column=1, value=_decrypt_str(b'Z0FBQUFBQnFhTnF4bkViUC1iSHduZFZVN0p1bW95YllYRzFRdnRkX1NieFBEbjRJaERwQTRFNEpLajVIX2xVMFBqV3g0VzNxRlpMbWFJT3dwWkV2cmRqc0xpUU8wZHlLWnFHOUtNYmFsSEVYUzZudVNNUGZaeDQ9') if I46 else _decrypt_str(b'Z0FBQUFBQnFhTnF4aUNTb002bFlPbjN6X0JXN2N4YVl3a09CblVGWE9UQ1lGaVB0V2haX1I4ZDRCRWRyckE4YTh5OTlVdDNhMGpGeGNrQlZvQkJlcTZreVFuVlJoOTJTVFE9PQ==')).font = I42
+    I82.cell(row=3, column=1).fill = I41
+    I82.column_dimensions[_decrypt_str(b'Z0FBQUFBQnFhTnF4U1Q5QnFhbVdUbjFvbmRkbDBFTWpaaV9nRHhiaTdpWGNFZW9MbGprLWxJMExKNHNWRVY4NmZmUkFSdWE4T2JTR0tDdFZSSmQ1eWtfTFplUHZ5UTVBTmc9PQ==')].width = 15
+    for I13, I28 in enumerate(I27, start=2):
+        I8 = I82.cell(row=3, column=I13, value=I28.strftime(_decrypt_str(b'Z0FBQUFBQnFhTnF4bVVBZnZVN0Q1U1RueEhHTzlVVVdLM21qRUk2WXMtZGJpcWxIZjZxaEVZZnRtd2hzdmU3M0Y3MVNlTHVCRVNHbUtFbEIwT3liRmJkeEl6VVFsbzVEenc9PQ==')))
+        I8.fill, I8.font, I8.alignment = (I41, I42, I11)
+        I82.column_dimensions[get_column_letter(I13)].width = 9
+    I0 = 4 + len(I83) + 4
+    for I63, I84 in enumerate(I83):
+        I57 = 4 + I63
+        I9 = I82.cell(row=I57, column=1, value=f'{I84} Tage' if not I46 else I84)
+        I9.fill, I9.font, I9.alignment, I9.border = (I41, I42, I11, I71)
+        for I13, I28 in enumerate(I27, start=2):
+            I22 = I28.strftime(_decrypt_str(b'Z0FBQUFBQnFhTnF4MVdITlE1SENwbnlNby1iWTBOZnM2WC1qX2RtNW05VWxzYkdESWdHTzQ2QWM3NGRRR0JLcXdJbTVzNER0dTIwcTBMUUJlVmktNUx1UFR2Njh6aTJGV0E9PQ=='))
+            if I46:
+                I37 = f'=IFERROR(1/(1/MINIFS($L${I0 + 1}:$L$2000, $A${I0 + 1}:$A$2000, "{I84}", $D${I0 + 1}:$D$2000, "{I22}")), "")'
+            else:
+                I37 = f'=IFERROR(1/(1/MINIFS($L${I0 + 1}:$L$2000, $H${I0 + 1}:$H$2000, {I84}, $D${I0 + 1}:$D$2000, "{I22}")), "")'
+            I8 = I82.cell(row=I57, column=I13, value=I37)
+            I8.number_format = _decrypt_str(b'Z0FBQUFBQnFhTnF4VGxtQW5DNG5CV3UwWFg1dURDN0RpM25rZlh0Rm4yNzV2dFFsNVEyb1haRVJGdGJHU2Iwa3dTS1BfT2lTb2FOd0lPVlVyNFp1bGFUbThOa3lNSEhVaFE9PQ==')
+            I8.alignment, I8.border = (I11, I71)
+    I82.conditional_formatting.add(f'B4:{get_column_letter(len(I27) + 1)}{3 + len(I83)}', I56)
+    I82.cell(row=I0 - 2, column=1, value=_decrypt_str(b'Z0FBQUFBQnFhTnF4OFJuTWIta3lEbmdpTmViRUw3U0otRHhkUW9UajR2OEE4aGtSeXU3aWlkM1hQSm5ZSTUtalFIYmxIUDhZRXlOcXJJRDNPeVlSWWRNQ1JMbjF5SnlOeFlOME5jdU1TNUFEYkFvRlJOcnVsRnFlNWN6a1ZKa3V5cS16QURrRlRmN0ZrN2JwelphdVhTbFdLRHB6T0FjV2x4NExZVU5rVWVVMzRQMGpEUlY5MTJvPQ==')).font = I17
+    I43 = [_decrypt_str(b'Z0FBQUFBQnFhTnF4dVVTbkstR1A0R1plb3dVLUxkbjhubWpKaW9fZGJqb3pIYUdCd1o0MWxjR0lZRFB3OHRVclo0dTRlQVUxcV9Pb1puamN2R0JwNXZNX3lZZmg3NVNDUWc9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4eDJKSll6SVRlRDkyV0kwaHprSFVnbmNKV2tpSDFHdVAyQ1IyMDJ5V3lMWTVtRjhsZng1VnlTREw5dEdVaWJTdVJiX2ZxaEViQmVELXE4MUtodDVGbFE9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4Q0ZMa2NpaU1fMFJfcWVINlhZS085bU1BcURCM1VQU2hYZ0ZCOTBpMnpWZ29XTjhKel96RVpfQ3B1dEtPRldkSnF4X2ZFU0k1WlIwZU9PUFcwalhtZ1E9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4V1dMckJ2R1dkcjFPTEZTRy1DUFl6V1laWmFmQjJFMmRrN0hNbWQxdzFnSGM3blAxRXF2SEhRY3NrMVVHNENHOGRiUUNjNlZXcy1YNlNudUFjOTJ2Q3c9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4ZDY3aVhENERLWTlmM0hYNF9aaENITUE0LU56MlZfaFN0eVhGNjk2VGRBRHcwZGg1Zll0WTdXTnIwcWRKNGdCUmgyVTViSllnVGt5aUxPZnh3a2hoOHc9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4UUphRy0tZ1o2Qlk0NFBENWdUSXF1MkVkaF84R0psMjJaek9rbHpWcm9hVjhBcUtLVmdNaThvUjA5a0k3bHp2UHpGaUJsa0FVdVBkN01Qcld0YUZWd3c9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4ZEtrbzQxYnVSVTUxNTlMWnpBLW56V29fSWpheWxDQmVXcTdDdWJNSkxQY2RFS3VaVDVuaXRFVEVKdmhPQUg4aFRyZnFMdXR5TDAtUFBzeVM2UEpvWnc9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4dWtiZWpOUDM4NG92Rjk1Z1p5enZJY09oclpYa05ZOWp4bGdSN1M2TnRGd3I0VjlXR0JIbmx1YmhkY1dUYWhRRHFNOVpNMkdwV0ZyVEl0aGhoNEVhQ0E9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4M3BSQzk4Zm1QQmFaUEdndUJUbFE0OHhEeUxQR3J3VkJlOUNLV1FiRURuU19nd1gxLXJldEEtc0VKWEdjbnozdXltMC1Sb1dZQ0w3cktMNHVld3h0RVE9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4TlNzQkJHS3k1YnFrNFkwQzI4NGNMenY3bTRfSS1JMWJ3cGVrVkJsVHlSNlJvV3lmQm1RZjl4cEdkbDQ0d1Q2VFVyVGFxN1Q3YzNBVnEzY2VNUDkxWVE9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4WnRXWXltdEpvRFQyek8ySVFoNHg0T0lIa3J4b3paTHFkeWJYZ3BFV2ZMNXFKSUw4MGdlOW9sdmI2UUFSNXNneFVBYWxnSjhLaHFvelpZTXltaGNhbWc9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4WENYbVAwQlpEYi1naWVhakl3TFdKWS1vYnJieVdjcnBfX3lDSzEzV0E5YmFwT3ZZRmhxeGlaYWFRbmFyQlpVLXdWWVRXa0tNWmFsMlgtUi1MaF8zelJRc2xYVG5ISEJJT3pjZkNHTTlTV1k9'), _decrypt_str(b'Z0FBQUFBQnFhTnF4MjR4VERWMnBNb0k1eWd6QXZQNUhVZlVXTGk2aEF1MjBYa3ZHY1lZTzliYVNTSW5vNnFxbkYtMkkzU3E0NDFKMXNUanRyelFXRVAxZHdoSzJxSTZhNmc9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4MHl0UUp3eXhQd2VHMXF5Um93RUp6aGZrNkhZMXRFWW81RDVkQXNnSWdNREpCMzRIdGNjWkZkSTgwSGtDcncydHNWT3lQM0JTNXdMRXBPdHFoclc1SFE9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4ckZ6OVgyVm40c3E5NHJpcHdfNjJVOWM3V3E1QWl0dTl4T3VPVENPeWZkN3Z2WUc5U0NiMGJYaHRUeF9sNWlja0lxamlmZDdmdDhySk81T2hzWkJFbGc9PQ=='), _decrypt_str(b'Z0FBQUFBQnFhTnF4dmVxWVp6WHpsMmtIN3dVc0xZdU9hQmtGX1ZvQnB1aFZ2NEcxY01sNXNCVTAyLVJMNjZvRzlBRW9PbXJSVmFYN1lGTjdSc01BOWNpVlpQNU4zRzNCVHc9PQ==')]
+    for I14, I40 in enumerate(I43, 1):
+        I10 = I82.cell(row=I0, column=I14, value=I40)
+        I10.fill, I10.font, I10.alignment = (I41, I42, I11)
+    I82.freeze_panes = f'A{I0 + 1}'
+    I82.auto_filter.ref = f'A{I0}:{get_column_letter(len(I43))}{I0}'
+    for I62, I61 in enumerate(I21, start=I0 + 1):
+        I61[13] = f'=M{I62}-L{I62}'
+        I61[14] = f'=L{I62}/H{I62}'
+        for I13, I76 in enumerate(I61, 1):
+            I10 = I82.cell(row=I62, column=I13, value=I76)
+            I10.fill = I85 if I62 % 2 == 0 else I78
+            I10.border = I71
+            if I13 in [1, 2, 5, 7, 8, 11, 12, 13, 14, 15]:
+                I10.alignment = I11
+            else:
+                I10.alignment = I48
+            if I13 in [12, 13, 14, 15]:
+                I10.number_format = I16
+            if I13 == 16:
+                I10.font = I50
+    I34 = I0 + len(I21)
+    I82.conditional_formatting.add(f'L{I0 + 1}:L{I34}', I56)
+    I82.conditional_formatting.add(f'M{I0 + 1}:M{I34}', I56)
+    I82.conditional_formatting.add(f'O{I0 + 1}:O{I34}', I56)
+    I15 = {_decrypt_str(b'Z0FBQUFBQnFhTnF4YWoxREhXQ0hEZ1NHM1NESk8ycXBFbzFud1RGRnBEbnhDRzZsaUNDM21DWmFFNnJYUWE2Wm94THhPR1lsTGVKeVI5NkVJLXk1SkdfMENJb3VEVjk5Ymc9PQ=='): 10, _decrypt_str(b'Z0FBQUFBQnFhTnF4eXg1Y0pTTXg4NXhkbVNKRy14NkhlQmROQUd0VWxya1puOGJMWVZXbGd3VEZlZVZmTzV3OU5PejJ6eUVsRUtCdm9tbENrWVdnRkg3Q1YyRDEtT2lmUGc9PQ=='): 10, _decrypt_str(b'Z0FBQUFBQnFhTnF4T3pIdzByRW1PaW40TkZsbU1iTmlRZjRjb2ZuMHpYdFN2djlvdm94bEd5eDE1c19tMUNjVXVXWUxqTEVRNGh4SWdHYkN0MlJHblJUYy1Vc1ozbVYtWVE9PQ=='): 22, _decrypt_str(b'Z0FBQUFBQnFhTnF4WExyRFhudmo5QXRMWnBvMjdGVUVxSHlNWmVEVXU5SGNseUNPZFc2YmlnX3ZxOU5OOUFGZS1WbmNiUGpNZm44bHRiZzJ0N0FCbTlfTTA4dzhfTDZseGc9PQ=='): 12, _decrypt_str(b'Z0FBQUFBQnFhTnF4ZkF6NUlBQkdXa3c2UmthRkV5a1VWTjJfaVA1dEVIRm5FYUpqUUFsWGI5LU55Z0JkTXRZZVN4LVlnTlA1U3BjNXB1NzFjazd6MFR4bVRJdXFYUlRxNXc9PQ=='): 6, _decrypt_str(b'Z0FBQUFBQnFhTnF4Xy1IZjNINkV6RFhJZzZkeXJMenRHN290c25BTnd2ZmhJak5nWjBvNkh3NlNkMEJROTRlWnRwZEhEMEU5a0VRam5JZElTcFlNV3FxcmN5MEUwdzAwWGc9PQ=='): 12, _decrypt_str(b'Z0FBQUFBQnFhTnF4cEkxMlpPTC1KLXNyY2dWUkhCdjJ5Qjc4ZVh3MWpmOWJ3R05UQmtSRVU2Z0tweS1UWElkcE1tTzd2b1RYSFVvdzZ1RE1rZ29jZldYeHZ5TmJ5akQ1Tmc9PQ=='): 6, _decrypt_str(b'Z0FBQUFBQnFhTnF4NjB0aGtwYWlwUE1BQTBvX2tmUktiLUZjSnZZYy1DUXpoc0ZESWZILUpELWsxRWtjM3p1UDdhYkVlcFZ2a0lJSUNoQ0VvSjVCOHkzbWxpa2hWSGdJRkE9PQ=='): 8, _decrypt_str(b'Z0FBQUFBQnFhTnF4blFJbmVYckk1WENTeWNob0dva3FraVRrWllZXzFvOWNzMXlHeDUzem5Rd2JvWVlNUWlCSExFSzQ2ZWdCQ1NJZnFfMmJsVHltTXVBU1VMN3JXU2Z5cVE9PQ=='): 16, _decrypt_str(b'Z0FBQUFBQnFhTnF4TFZGeUZ1d0ZCREc5bDR0dkhlQ0xOaW9ZSEZsRGJJQzBfRUhJYWhiNTFSOEMxVXBXVXNsQnpFdmd0VmF4SDRtcGlXNkdQcm1PRkRTcGptVENwRWlYS3c9PQ=='): 14, _decrypt_str(b'Z0FBQUFBQnFhTnF4QVNrU0J3c3dDR3d1ZDNxRTZ0LWM3SkVwQ3I2UkJMWDdYdm9aSWVvM3RzMENwNDRiblFKWHdIc1haQ3Y2cGNyaUhTb2JPQXRvMERsY180RnJkaEFwdnc9PQ=='): 20, _decrypt_str(b'Z0FBQUFBQnFhTnF4SWQyQ2Ixam1zNjFwRWx0QkxfMHZReU1tUmszSnZzc0lranNRekNlUUxsV0lRSGhiYV91Z291WnlhMjFidGxFd1dCaFM0NUxWeXBPTmhwS0VndFoxOXc9PQ=='): 18, _decrypt_str(b'Z0FBQUFBQnFhTnF4OFI3WXNWcDJVczJrZ0FiNDlYd2daSzRiSGVlWWVrOHQwMkgwY2t3bHBtZWlPWVlObzlwRlZOb3VRWEVyZmZocHFIcTQ2XzlwaDlzeWRnUXlpX2NaSFE9PQ=='): 18, _decrypt_str(b'Z0FBQUFBQnFhTnF4bmxJMG5rRUJhWUxxS1U5RXZNLXhYVi1STjFFcVZrdXVZLTZ1T0ZPOXRrV3l6ZVlydFF6Z3dwYlRoeTN1dEdlTER2Q2pRVFNkYkkyamhSM0hSR0dvX3c9PQ=='): 12, _decrypt_str(b'Z0FBQUFBQnFhTnF4dFRyUTZ2bHBNYV9qNGtrNDlzX3JBcENpNVA4TG1MaWV5VUxqdjNFTVJ2R2ltS2xxd2hocUFLV2NmMEhXVHZxUm5aWEIyLUw3aHk2Wm1kT0pFUnNRWEE9PQ=='): 12, _decrypt_str(b'Z0FBQUFBQnFhTnF4MnNGTElNb29ZQi1vZHJPSzVOSGJwcmRBaThLT3hjVVBRdnZRc3Jvc2xBUExHM3hxUGZjX1dRV0xfdE9obHdLaGZlSFFLSTZXVFItbWFsSHk5cDFsdGc9PQ=='): 20}
+    for I12, I79 in I15.items():
+        I82.column_dimensions[I12].width = I79
+I18 = I77.create_sheet(title=_decrypt_str(b'Z0FBQUFBQnFhTnF4X3ZHeHVuZmlGU2Jwckd2RUI4aklaUGZSeXR2cTNUdjVuLTRVNGZRdWRSbXJiV2JDTWJKVmxJYTI2c0NnUTVXUkhKQXhGTUIyTjlNaXpRbVc3QmQtTkE9PQ=='), index=0)
+I18.sheet_view.showGridLines = False
+I18[_decrypt_str(b'Z0FBQUFBQnFhTnF4azJJYnpkbEtieVNuOE9TRW9hTk00R19reDZfZ1U0a2RaNWJNQk1QVEticTAtc293UmtmSGltRWd5X2tQUFNMa0x6UGtuX1J6dWxxcy1PU3Y1TGpndFE9PQ==')] = f'✈️ Executive Dashboard: {I26}'
+I18[_decrypt_str(b'Z0FBQUFBQnFhTnF4dnBfS2pmSEZ2NGhETHpLaDZVR3UwS1VrUkItZHdaODZWS1Rwa3FpVS1QRHQ2T1hpR1JVSGxfdU8xdDV3MV90cC0yWElNaWtDZ29wTldVdlBTaHY5d0E9PQ==')].font = Font(size=20, bold=True, color=_decrypt_str(b'Z0FBQUFBQnFhTnF4c2xnckQyaEZnc3dXV2dQMDdPLXJ2ZG94dWhpV2xvUWRtRG4wSFlINUZXei1ybldxUFl3WFlYVnhiRFJob0dGOTZTaEFzYkpXN3JReU83Ui1YX2J6dlE9PQ=='))
+for I29 in I32:
+    if len(I31[I29]) > 0:
+        I82 = I77.create_sheet(title=f'⏱️ {I29} Tage')
+        I81(I82, I31[I29], is_duration_sheet=True, reference_val=I29)
+for I6 in I5:
+    if len(I4[I6]) > 0:
+        I82 = I77.create_sheet(title=f'✈️ {I6}')
+        I81(I82, I4[I6], is_duration_sheet=False, reference_val=I6)
+I77.save(I35)
+print(f"🎉 Fertig! Die Matrix inklusive Indikationsfarben, Preis/Tag und Dauer-Tabs ist gespeichert als: '{I35}'")
