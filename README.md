@@ -44,7 +44,7 @@ python3 --version
 
 ### 2. Repository klonen oder Dateien herunterladen
 ```
-git clone https://github.com/swfdtf/flightmatrix-pro
+git clone https://github.com/swfdtf/flightmatrix_pro
 ```
 
 ### 3. Abhängigkeiten installieren
