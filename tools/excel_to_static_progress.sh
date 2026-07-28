@@ -1,29 +1,27 @@
-#!/bin/bash
+import os
 
-# Excel Formeln in feste Werte umwandeln mit Fortschrittsanzeige und Hilfe (macOS Shell-Skript)
+script_content = r"""#!/bin/bash
+
+# Excel Formeln in feste Werte umwandeln mit Fortschrittsanzeige (macOS Shell-Skript)
 # Verwendung: ./excel_to_static_progress.sh [eingabe.xlsx | --help]
 
-# Hilfe-Option prüfen
-if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
-    echo "=================================================================="
-    echo " Excel to Hardcoded Static Values Converter (macOS)"
-    echo "=================================================================="
-    echo " Weitere Dokumentation und Anleitung findest du hier:"
-    echo " https://github.com/SWFDtf/flightmatrix_pro/blob/main/tools/README.md"
-    echo "=================================================================="
-    echo " Verwendung:"
-    echo "   ./excel_to_static_progress.sh <eingabe.xlsx>"
-    echo "   ./excel_to_static_progress.sh --help"
-    exit 0
+# Hilfe-Option oder fehlendes Argument prüfen
+if [ "$1" = "--help" ] || [ "$1" = "-h" ] || [ -z "$1" ]; then
+    if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+        echo "Öffne Dokumentation im Browser..."
+        if command -v open &> /dev/null; then
+            open "https://github.com/SWFDtf/flightmatrix_pro/blob/main/tools/README.md"
+        else
+            echo "Bitte besuche: https://github.com/SWFDtf/flightmatrix_pro/blob/main/tools/README.md"
+        fi
+        exit 0
+    fi
+    echo "Fehler: Keine Eingabedatei angegeben."
+    echo "Verwendung: $0 <eingabe.xlsx> oder $0 --help"
+    exit 1
 fi
 
 INPUT_FILE="$1"
-
-if [ -z "$INPUT_FILE" ]; then
-    echo "Fehler: Keine Eingabedatei angegeben."
-    echo "Verwendung: $0 <eingabe.xlsx> (oder --help für Hilfe)"
-    exit 1
-fi
 
 if [ ! -f "$INPUT_FILE" ]; then
     echo "Fehler: Eingabedatei '$INPUT_FILE' wurde nicht gefunden."
@@ -113,3 +111,10 @@ except Exception as e:
     print("\nFEHLER bei der Verarbeitung: " + str(e))
     exit(1)
 EOF
+"""
+
+with open('excel_to_static_progress.sh', 'w') as f:
+    f.write(script_content)
+
+os.chmod('excel_to_static_progress.sh', 0o755)
+print("Erfolgreich! Die Datei 'excel_to_static_progress.sh' wurde erstellt und ausführbar gemacht.")
