@@ -1,12 +1,27 @@
 #!/bin/bash
 
-# Excel Formeln in feste Werte umwandeln mit Fortschrittsanzeige (macOS Shell-Skript)
-# Verwendung: ./excel_to_static_progress.sh eingabe.xlsx
+# Excel Formeln in feste Werte umwandeln mit Fortschrittsanzeige und Hilfe (macOS Shell-Skript)
+# Verwendung: ./excel_to_static_progress.sh [eingabe.xlsx | --help]
+
+# Hilfe-Option prüfen
+if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
+    echo "=================================================================="
+    echo " Excel to Hardcoded Static Values Converter (macOS)"
+    echo "=================================================================="
+    echo " Weitere Dokumentation und Anleitung findest du hier:"
+    echo " https://github.com/SWFDtf/flightmatrix_pro/blob/main/tools/README.md"
+    echo "=================================================================="
+    echo " Verwendung:"
+    echo "   ./excel_to_static_progress.sh <eingabe.xlsx>"
+    echo "   ./excel_to_static_progress.sh --help"
+    exit 0
+fi
 
 INPUT_FILE="$1"
 
 if [ -z "$INPUT_FILE" ]; then
-    echo "Verwendung: $0 <eingabe.xlsx>"
+    echo "Fehler: Keine Eingabedatei angegeben."
+    echo "Verwendung: $0 <eingabe.xlsx> (oder --help für Hilfe)"
     exit 1
 fi
 
