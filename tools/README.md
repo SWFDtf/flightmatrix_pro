@@ -47,9 +47,7 @@ f.write(md_content)
 
 print("Markdown file created successfully.")
 
-```
-```python?code_reference&code_event_index=5
-md_content = r"""# Anleitung: Excel-Formeln in statische Werte umwandeln (macOS)
+# Anleitung: Excel-Formeln in statische Werte umwandeln (macOS)
 
 Dieses Dokument erklärt, wie du das erstellte Shell-Skript auf deinem Mac nutzt, um Excel-Dateien mit Formeln in blitzschnell öffnende Dateien mit festen Werten ("Hardcoded") zu konvertieren.
 
@@ -61,10 +59,6 @@ Dieses Dokument erklärt, wie du das erstellte Shell-Skript auf deinem Mac nutzt
 2. Öffne das **Terminal** auf deinem Mac.
 3. Navigiere in den Ordner, in dem das Skript liegt:
 
-```
-
-```text
-Markdown file created successfully.
 
 ```bash
    cd ~/Desktop
@@ -108,75 +102,6 @@ chmod +x excel_to_static_progress.sh
 
 * **Python 3** muss auf deinem Mac vorhanden sein (ist bei macOS standardmäßig oder über Xcode Command Line Tools / Homebrew installiert).
 * Das Skript funktioniert für `.xlsx`-Dateien.
-"""
-
-with open('README_Excel_Converter.md', 'w') as f:
-f.write(md_content)
-
-print("Markdown file created successfully.")
-
-```
-Deine Markdown-Datei mit einer vollständigen Anleitung und Dokumentation ist bereit.
-
-[file-tag: code-generated-file-0-1785259007517995694]
-
-### Inhalt der generierten Markdown-Datei (`README_Excel_Converter.md`):
-
-```markdown
-# Anleitung: Excel-Formeln in statische Werte umwandeln (macOS)
-
-Dieses Dokument erklärt, wie du das erstellte Shell-Skript auf deinem Mac nutzt, um Excel-Dateien mit Formeln in blitzschnell öffnende Dateien mit festen Werten ("Hardcoded") zu konvertieren.
-
----
-
-## 🚀 1. Schnellstart
-
-1. Lade das Skript `excel_to_static_progress.sh` in einen Ordner deiner Wahl (z. B. auf deinen Schreibtisch).
-2. Öffne das **Terminal** auf deinem Mac.
-3. Navigiere in den Ordner, in dem das Skript liegt:
-   ```bash
-   cd ~/Desktop
-
-```
-
-4. Mache das Skript einmalig ausführbar:
-```bash
-chmod +x excel_to_static_progress.sh
-
-```
-
-
-5. Führe das Skript aus und übergebe deine Excel-Datei:
-```bash
-./excel_to_static_progress.sh deine_tabelle.xlsx
-
-```
 
 
 
----
-
-## 🛠 Was macht das Skript im Detail?
-
-1. **Abhängigkeits-Check:** Es prüft, ob die Python-Bibliothek `openpyxl` installiert ist. Falls nicht, installiert es diese automatisch über `pip3`.
-2. **Formel-Analyse:** Es scannt die gesamte Excel-Datei (alle Tabellenblätter) und zählt im Voraus exakt, wie viele Formeln (Zellen, die mit `=` beginnen) vorhanden sind.
-3. **Fortschrittsanzeige:** Während des Ersetzens zeigt das Terminal eine visuelle Progress-Bar mit Prozentangabe und Zähler (`(Aktuell/Gesamt)`) an.
-4. **Automatische Namensgebung:** Die Zieldatei wird automatisch im selben Ordner gespeichert und erhält den Namenszusatz `_hardcoded.xlsx` (z. B. aus `budget.xlsx` wird `budget_hardcoded.xlsx`).
-
----
-
-## 📊 Auswirkung auf Diagramme
-
-* **Diagramme funktionieren weiterhin fehlerfrei**, da sie sich auf die Zellenwerte stützen.
-* Da die Formeln durch ihre echten Ergebnisse ersetzt wurden, müssen Excel oder andere Tabellenkalkulationsprogramme beim Öffnen keine rechenintensiven Formeln mehr berechnen. Die Datei öffnet sich **instant** (ohne Lade- oder Berechnungsverzögerung).
-
----
-
-## ⚠️ Voraussetzungen
-
-* **Python 3** muss auf deinem Mac vorhanden sein (ist bei macOS standardmäßig oder über Homebrew/Xcode Tools verfügbar).
-* Das Skript ist für moderne `.xlsx`-Dateien ausgelegt.
-
-```
-
-```
