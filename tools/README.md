@@ -1,5 +1,7 @@
 # Excel Formeln in feste Werte umwandeln (`_hardcoded.xlsx`)
 
+
+<b> Diese Version ist veraltet. Die Neueversion ist excel-freeze. https://github.com/SWFDtf/excel-freeze</b><hr><br>
 Dieses Tool bzw. Skript konvertiert rechenintensive Excel-Dateien (`.xlsx`) in blitzschnell öffnende Dateien, indem alle Formeln durch ihre festen, berechneten Werte ersetzt werden. Diagramme und Formatierungen bleiben dabei vollständig erhalten, da sie auf den reinen Zellwerten basieren.
 
 ---
@@ -103,5 +105,5 @@ chmod +x excel_to_static_progress.sh
 * **Python 3** muss auf deinem Mac vorhanden sein (ist bei macOS standardmäßig oder über Xcode Command Line Tools / Homebrew installiert).
 * Das Skript funktioniert für `.xlsx`-Dateien.
 
-
+<hr>
 
