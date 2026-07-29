@@ -4,7 +4,7 @@ script_content = r"""#!/bin/bash
 
 # Excel Formeln in feste Werte umwandeln mit Fortschrittsanzeige (macOS Shell-Skript)
 # Verwendung: ./excel_to_static_progress.sh [eingabe.xlsx | --help]
-
+echo "v1.0 Made by SWFDtf"
 # Hilfe-Option oder fehlendes Argument prüfen
 if [ "$1" = "--help" ] || [ "$1" = "-h" ] || [ -z "$1" ]; then
     if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
