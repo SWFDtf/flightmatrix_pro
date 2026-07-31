@@ -1,74 +1,49 @@
-# ✈️ Pro Flugpreis-Matrix (Sliding Window & Multi-Platform Analysis)
+# 🌍 FlightMatrix Pro
 
-Ein extrem mächtiges, lokal ausgeführtes Python-Skript zur automatisierten Erstellung einer hochdetaillierten, professionellen Excel-Arbeitsmappe (`.xlsx`) für die Flugpreis- und Reisekostenanalyse.
+FlightMatrix Pro ist ein dynamischer Live-Tracker für Google Flights. Das Skript klinkt sich als Beobachter in deine aktive Google Flights Session ein, extrahiert detaillierte Flugdaten (inklusive IATA-Codes, Gepäck-Matrix, CO2-Emissionen und Zwischenstopps) in Echtzeit und speichert diese strukturiert in einer formatierten Excel-Datei.
 
-Es analysiert lückenlos alle Tage innerhalb von Schulferien (per gleitendem Fenster / Sliding Window), vergleicht verschiedene deutsche Abflughäfen (NRW & große Hubs) und berücksichtigt wichtige Besonderheiten wie Layover-Quirks, Plattform-Vergleiche und Gepäckoptionen.
+🔗 **Repository:** [https://github.com/SWFDtf/flightmatrix_pro/](https://github.com/SWFDtf/flightmatrix_pro/)
 
----
+## ✨ Features
 
-> **⚠️ Wichtiger Hinweis zu API-Calls & Web-Scraping:**
-> Dieses Skript generiert simulierte, realitätsnahe Markt- und Preisdaten inklusive direkter Such-Links zu Plattformen wie **Google Flights, Skyscanner und Trip.com**. Es führt **keine** Live-Web-Scraping-Abfragen oder automatisierten API-Calls auf diesen Plattformen durch.
->
-> *Dadurch läufst du absolut sicher vor IP-Bans, Captchas oder dem Verstoß gegen Nutzungsbedingungen (ToS) von Drittanbietern!* Die Links leiten dich direkt zur manuellen Live-Suche im Browser weiter.
+* **Echtzeit Live-Observer:** Liest Flugdaten vollautomatisch aus, während du dich durch Google Flights klickst.
+* **Intelligente IATA-Tabs:** Erstellt für jede neue Flugroute (z.B. FRA-JFK) selbstständig ein eigenes Tabellenblatt in der Excel-Datei.
+* **Gepäck-Matrix:** Analysiert den Text und erkennt, ob Hand- und Aufgabegepäck im Tarif inkludiert sind oder ob zusätzliche Gebühren anfallen.
+* **Auto-Overwrite (Preis-Korrektur):** Aktualisiert die Preise für Hin- und Rückflüge dynamisch im Hintergrund, sobald der finale Gesamtpreis im Checkout-Schritt feststeht.
+* **Live-Terminal-Steuerung:** Pausiere den Scanner, erzwinge einen Re-Check oder beende die Session sauber direkt über Konsolen-Befehle.
+* **Automatisiertes Excel-Styling:** Generiert formatierte Excel-Exporte mit eingefrorenen Kopfzeilen und automatischen Heatmaps (Color-Scales) zum sofortigen Erkennen der günstigsten Preise.
 
----
+## 🚀 Installation
 
-## Features
-- **Sliding-Window-Analyse:** Geht jeden einzelnen Tag der Schulferien (NRW) für verschiedene Reisedauern (4 bis 14 Tage) durch.
-- **Umfassendes Abflughafen-Netzwerk:** - *Regional NRW:* Düsseldorf (DUS), Köln/Bonn (CGN), Dortmund (DTM), Münster/Osnabrück (FMO), Paderborn/Lippstadt (PAD), Niederrhein-Weeze (NRN)
-  - *Deutsche Hubs:* Frankfurt (FRA), München (MUC), Berlin (BER), Hamburg (HAM), Stuttgart (STR)
-- **Multi-Plattform-Vergleich:** Vergleicht Angebote virtuell über Google Flights, Skyscanner und Trip.com mit echten, klickbaren Deeplinks.
-- **Erweiterte Stopp-Analysen & Quirks:** Markiert Besonderheiten wie Flughafenwechsel bei Layovers (z.B. LHR ➔ LGW), extrem kurze Umsteigezeiten oder lange Aufenthalte.
-- **Professionelles Excel-Design (`openpyxl`):**
-  - **Dashboard & Übersicht** mit KPIs, Min/Max/Avg-Formeln (`MINIFS`, `AVERAGEIFS`) und integriertem Säulendiagramm.
-  - Bedingte Formatierung (Farb-Skalen Grün-Gelb-Rot) für Bestpreise.
-  - Fixierte Kopfzeilen (Frozen Panes) und Autofilter.
-
----
-
-## In diesem Repository enthalten
-- `flight_matrix_pro.py` – Das Hauptskript zur Generierung der Excel-Datei.
-- `requirements.txt` – Liste der benötigten Python-Bibliotheken.
-- `LICENSE` – Lizenzdatei (MIT License).
-- `README.md` – Diese Dokumentation.
-
----
-
-## Installation & Voraussetzungen
-
-### 1. Python installieren
-Stelle sicher, dass Python 3.x auf deinem System (macOS, Windows oder Linux) installiert ist. Du kannst es im Terminal überprüfen mit:
-```bash
-python3 --version
-```
-
-### 2. Repository klonen oder Dateien herunterladen
-```
-git clone https://github.com/swfdtf/flightmatrix_pro && cd flightmatrix_pro
-```
-
-### 3. Abhängigkeiten installieren
-Öffne dein Terminal (unter macOS z.B. das Terminal oder iTerm2), navigiere in den Ordner und installiere die benötigten Pakete über die `requirements.txt`:
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## Benutzung
-
-1. Starte das Skript im Terminal:
+1. Klone dieses Repository auf deinen Rechner:
    ```bash
-   python3 flight_matrix_pro.py
+   git clone [https://github.com/SWFDtf/flightmatrix_pro.git](https://github.com/SWFDtf/flightmatrix_pro.git)
+   cd flightmatrix_pro
+
+```
+ 2. Installiere die benötigten Python-Abhängigkeiten:
+   ```bash
+   pip install -r requirements.txt
+   
    ```
-2. Das Skript fragt dich interaktiv im Terminal nach:
-   - Dem gewünschten **Reiseziel** (z.B. *Tokio*, *Dubai*, *New York*).
-   - Den dazugehörigen **IATA-Codes** (z.B. *HND, NRT* oder *DXB*).
-3. Das Skript berechnet im Hintergrund Tausende von Kombinationen und generiert eine Excel-Datei im selben Ordner, benannt nach dem Schema:
-   `Flugpreisanalyse_Matrix_[Reiseziel].xlsx`
-4. Öffne die Excel-Datei in Microsoft Excel oder Apple Numbers, um das interaktive Dashboard und die Detailtabellen zu nutzen!
+## 💻 Nutzung
+Starte das Hauptskript über dein Terminal:
+```bash
+python flightmatrix_pro.py
 
----
+```
+Sobald das Skript läuft, öffnet sich automatisch ein neues Chrome-Browserfenster mit Google Flights. Navigiere einfach wie gewohnt auf der Seite, suche nach deinen Flügen und klicke dich durch die Optionen. Das Skript läuft im Hintergrund und protokolliert alle gefundenen Daten ("RAW" für Einzelflüge, eigene Tabs für gepaarte Hin- und Rückflüge).
+### ⌨️ Terminal-Befehle
+Während das Skript läuft, kannst du folgende Tasten in dein Terminal tippen und mit Enter bestätigen, um den Scraper zu steuern:
+| Befehl | Aktion |
+|---|---|
+| **p** | Pausiert das Tracking oder setzt es fort. |
+| **r** | Erzwingt sofort einen manuellen Re-Check der aktuell geöffneten Seite. |
+| **q** | Beendet die Observierung sicher und speichert die finale Excel-Datei ab. |
+## 🛠️ Verwendete Technologien
+ * **Selenium:** Für die Browser-Automatisierung und das Auslesen des DOMs.
+ * **Webdriver Manager:** Für das automatische Management des ChromeDriver-Setups.
+ * **OpenPyXL:** Für das Erstellen, Formatieren und Speichern der komplexen Excel-Strukturen.
+## ⚠️ Wichtiger Hinweis
+Google ändert gelegentlich die DOM-Struktur (HTML) von Google Flights. Dieses Skript nutzt robuste Regex-Muster und Text-Analysen, um Ausfälle bei leichten UI-Änderungen zu minimieren. Dennoch kann es bei großen Updates seitens Google passieren, dass Selektoren angepasst werden müssen.
 
-## Lizenz
-Dieses Projekt ist unter der **MIT License** lizenziert – siehe die `LICENSE`-Datei für Details.
