@@ -16,22 +16,27 @@ FlightMatrix Pro ist ein dynamischer Live-Tracker für Google Flights. Das Skrip
 ## 🚀 Installation
 
 1. Klone dieses Repository auf deinen Rechner:
-   ```
+```
    git clone [https://github.com/SWFDtf/flightmatrix_pro.git](https://github.com/SWFDtf/flightmatrix_pro.git)
    cd flightmatrix_pro
 
 ```
+
  2. Installiere die benötigten Python-Abhängigkeiten:
+
    ```
    pip install -r requirements.txt
    
    ```
+
 ## 💻 Nutzung
 Starte das Hauptskript über dein Terminal:
+
 ```
 python flightmatrix_pro.py
 
 ```
+
 Sobald das Skript läuft, öffnet sich automatisch ein neues Chrome-Browserfenster mit Google Flights. Navigiere einfach wie gewohnt auf der Seite, suche nach deinen Flügen und klicke dich durch die Optionen. Das Skript läuft im Hintergrund und protokolliert alle gefundenen Daten ("RAW" für Einzelflüge, eigene Tabs für gepaarte Hin- und Rückflüge).
 ### ⌨️ Terminal-Befehle
 Während das Skript läuft, kannst du folgende Tasten in dein Terminal tippen und mit Enter bestätigen, um den Scraper zu steuern:
