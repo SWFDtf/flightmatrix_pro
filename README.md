@@ -16,19 +16,19 @@ FlightMatrix Pro ist ein dynamischer Live-Tracker für Google Flights. Das Skrip
 ## 🚀 Installation
 
 1. Klone dieses Repository auf deinen Rechner:
-   ```bash
+   ```
    git clone [https://github.com/SWFDtf/flightmatrix_pro.git](https://github.com/SWFDtf/flightmatrix_pro.git)
    cd flightmatrix_pro
 
 ```
  2. Installiere die benötigten Python-Abhängigkeiten:
-   ```bash
+   ```
    pip install -r requirements.txt
    
    ```
 ## 💻 Nutzung
 Starte das Hauptskript über dein Terminal:
-```bash
+```
 python flightmatrix_pro.py
 
 ```
